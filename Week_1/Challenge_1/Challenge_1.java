@@ -13,6 +13,7 @@ public class Challenge_1
 	private static final String[] CHOICES = {"1. Add Event", "2. Delete Event", "3. Edit Event", "4. Display Events"};
 	private static ArrayList<HourEvent> eventsList;
 	private static Scanner input;
+	//Test
 	public static void main(String args[])
 	{
 		eventsList = new ArrayList<HourEvent>();
