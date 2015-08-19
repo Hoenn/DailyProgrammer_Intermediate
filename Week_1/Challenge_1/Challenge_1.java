@@ -26,14 +26,14 @@ public class Challenge_1
 			System.out.println(CHOICES[i]);
 		}
 		System.out.println("Enter a number");
-		int userInput = -1;
+		int selection = -1;
 		do
 		{
-			userInput = Integer.parseInt( input.nextLine());
+			selection = Integer.parseInt( input.nextLine());
 		
-		} while(userInput<1 || userInput>4);
+		} while(selection<1 || selection>4);
 		
-		switch(userInput)
+		switch(selection)
 		{
 			case 1: addEvent();
 					break;
@@ -103,15 +103,16 @@ public class Challenge_1
 		}
 		System.out.println("Enter number of Event to remove");
 		
-		int userInput = -1;
+		int selection = -1;
 		do
 		{
-			userInput = Integer.parseInt(input.nextLine());
-			if(userInput < 0  || userInput>eventsList.size())
+			selection= Integer.parseInt(input.nextLine());
+			if(selection< 0  || selection>eventsList.size())
 				System.out.println("Invalid input, Select a number from above");
-		}while(userInput < 0  || userInput>eventsList.size());
+		}
+		while(selection< 0  || selection>eventsList.size());
 		
-		eventsList.remove(userInput-1);
+		eventsList.remove(selection-1);
 		
 		//Back to menu
 		menuSelection();
