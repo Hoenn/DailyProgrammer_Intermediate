@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
-
+/*
+ * Create a program that can take a piece of text and encrypt it with an alphabetical substitution cipher. 
+ * This can ignore white space, numbers, and symbols.
+ */
 public class Challenge_3
 {
 	private static Scanner input;
