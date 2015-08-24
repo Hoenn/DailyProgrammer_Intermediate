@@ -1,0 +1,3 @@
+The question for Challenge 6 isn't very clear on its intent. Even the edit for clarification does basically nothing to improve the question. 
+Apparently the intent was to remove any duplicate "words" that have a size greater than 3 but seems trivial to do so without spaces in between
+each word.
