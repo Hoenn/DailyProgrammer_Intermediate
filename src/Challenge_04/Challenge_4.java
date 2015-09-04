@@ -1,4 +1,4 @@
-package Challenge_4;
+package Challenge_04;
 
 import java.util.ArrayList;
 import java.util.Scanner;

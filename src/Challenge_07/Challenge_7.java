@@ -1,4 +1,4 @@
-package Challenge_7;
+package Challenge_07;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;

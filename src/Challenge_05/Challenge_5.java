@@ -1,4 +1,4 @@
-package Challenge_5;
+package Challenge_05;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

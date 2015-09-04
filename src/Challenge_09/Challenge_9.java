@@ -1,4 +1,4 @@
-package Challenge_9;
+package Challenge_09;
 
 import java.io.File;
 import java.io.FileNotFoundException;
