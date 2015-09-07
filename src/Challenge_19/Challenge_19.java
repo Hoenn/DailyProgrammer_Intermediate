@@ -23,7 +23,7 @@ public class Challenge_19 {
 			"THE ADVENTURE OF THE BERYL CORONET",
 			"THE ADVENTURE OF THE COPPER BEECHES"
 	};
-	private final static String filePath ="Week_3/Challenge_19/sherlock.txt";
+	private final static String filePath ="src/Challenge_19/sherlock.txt";
 	public static void main(String args[]) throws IOException
 	{
 		String masterString = readFile(filePath, StandardCharsets.UTF_8);
@@ -31,25 +31,34 @@ public class Challenge_19 {
 		ArrayList<String> chapters = new ArrayList<String>();
 		for(int i=0; i< chapterTitles.length-1; i++)
 		{
-			System.out.println(i);
 			chapters.add(masterString.substring(masterString.indexOf(chapterTitles[i],bookStart), masterString.indexOf(chapterTitles[i+1],bookStart)));
 		}
 		chapters.add(masterString.substring(masterString.indexOf(chapterTitles[chapterTitles.length-1], bookStart)));
+		ArrayList<String> eachChapterTotal = new ArrayList<String>();
 		int sum =0;
 		StringTokenizer tokenizer;
+		int pos =0;
 		for(String s: chapters)
 		{
 			tokenizer = new StringTokenizer(s);
 			System.out.println(tokenizer.countTokens());
+			eachChapterTotal.add(chapterTitles[pos]+" "+tokenizer.countTokens());
 			sum+=tokenizer.countTokens();
+			pos++;
 		}
+		
 		int numWordsOfChapterTitles=0;
 		for(int i = 0 ; i<chapterTitles.length; i++)
-		{
+		{	
 			numWordsOfChapterTitles+=chapterTitles[i].length();
 		}
 		sum-=numWordsOfChapterTitles;
 		System.out.println("Total words in book "+sum);
+		System.out.println("Each Chapter");
+		for(String s: eachChapterTotal)
+		{
+			System.out.println(s);
+		}
 	}
 	private static String readFile(String path, Charset encoding) throws IOException
 	{
