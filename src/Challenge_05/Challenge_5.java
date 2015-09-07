@@ -10,7 +10,7 @@ public class Challenge_5 {
 	 * Create a program that can find the amount of anagrams
 	 * within a .txt file
 	 */
-	private static final String filepath= "Week_1/Challenge_5/ch5.txt";
+	private static final String filepath= "src/Challenge_5/ch5.txt";
 	public static void main(String args[]) throws FileNotFoundException
 	{
 		String token ="";

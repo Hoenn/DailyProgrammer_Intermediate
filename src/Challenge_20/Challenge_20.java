@@ -24,9 +24,7 @@ public class Challenge_20 {
 		result+= "Days: "+age*365+" ";
 		result+= "Hours: "+age*(365*24)+" ";
 		result+= "Minutes: "+age*(365*24*60)+" ";
-				
-		
-		
+					
 		return result;
 	}
 }

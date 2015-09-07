@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Challenge_18
 {
 	private static String output = "<html><body><form>\n";
-	private static final String filePath= "Week_3/Challenge_18/input.txt";
+	private static final String filePath= "src/Challenge_18/input.txt";
 	public static void main(String args[]) throws IOException
 	{
 		String masterString = readFile(filePath, StandardCharsets.UTF_8);

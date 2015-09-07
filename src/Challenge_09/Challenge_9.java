@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 
 public class Challenge_9 {
-	private static final String filepath="Week_2/Challenge_9/ch9.txt";
+	private static final String filepath="src/Challenge_9/ch9.txt";
 	public static void main(String args[]) throws IOException
 	{
 		//Get entire text file in one string
