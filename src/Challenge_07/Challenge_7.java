@@ -42,8 +42,8 @@ public class Challenge_7 extends JApplet {
 		  double y1 = y0 + len * (Math.sin(angle));
 		  
 		 ((Graphics2D) g2).draw(new Line2D.Double(x0, y0, x1, y1));
-		 drawFractal(x1, y1, len * 0.70, angle + Math.toRadians(30), g2);
-		 drawFractal(x1, y1, len * 0.70, angle - Math.toRadians(30), g2);
+		 drawFractal(x1, y1, len * 0.66, angle + Math.toRadians(120), g2);
+		 drawFractal(x1, y1, len * 0.36, angle - Math.toRadians(46), g2);
 	  }
   }
 
