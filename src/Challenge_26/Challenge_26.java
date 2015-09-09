@@ -11,32 +11,99 @@ import java.util.Scanner;
  */
 public class Challenge_26
 {
+	private static Scanner input = new Scanner(System.in);
 	public static void main(String args[])
 	{
 		ArrayList<Employee> employeeList = new ArrayList<Employee>();
-	
-		Scanner input = new Scanner(System.in);
+		int option = 0;
+		while(option>=0)
+		{
+			System.out.println("1. Add employee");
+			System.out.println("2. Delete employee");
+			System.out.println("3. Edit employee");
+			System.out.println("4. Display employees");
+			System.out.println("-1. Quit");
+			option = Integer.parseInt(input.nextLine());
+			switch(option)
+			{
+				case 1:	addEmployee(employeeList);
+						break;
+				case 2: deleteEmployee(employeeList);
+						break;
+				case 3: editEmployee(employeeList);
+						break;
+				case 4: printList(employeeList);
+			}
+		}
+	}
+	private static void addEmployee(ArrayList<Employee> employeeList)
+	{
 		System.out.println("Enter a name: ");
 		String name = input.nextLine();
 		System.out.println("Enter a ID: ");
 		int id = Integer.parseInt(input.nextLine());
 		System.out.println("Enter a salary: ");
 		double salary = Double.parseDouble(input.nextLine());
-		
-		
+		employeeList.add(new Employee(name, id, salary));
 	}
-	
-	private class Employee
+	private static void deleteEmployee(ArrayList<Employee> employeeList)
 	{
-		private String name;
-		private int id;
-		private double salary;
-		public Employee(String n, int i, double s)
+		System.out.println("Enter name of delete");
+		String name = input.nextLine();
+		for(int i=0; i<employeeList.size(); i++)
 		{
-			name = n;
-			id = i;
-			salary =s;
+			if(employeeList.get(i).getName().equals(name))
+			{
+				employeeList.remove(i);
+				i=employeeList.size();
+			}
 		}
+	}
+	private static void editEmployee(ArrayList<Employee> employeeList)
+	{
+		System.out.println("Enter name of employee to edit");
+		String name = input.nextLine();
+		Employee edit = null;
+		for(int i=0; i<employeeList.size(); i++)
+		{
+			if(employeeList.get(i).getName().equals(name))
+			{
+				edit=employeeList.get(i);
+			}
+		}
+		if(edit == null)
+		{
+			System.out.println("Employee not found");
+			return;
+		}
+		System.out.println("Enter new name or nothing to keep");
+		String newName = input.nextLine();
+		System.out.println("Enter new ID or -1 to keep");
+		int newId = Integer.parseInt(input.nextLine());
+		System.out.println("Enter new Salary or -1 to keep");
+		double newSal = Double.parseDouble(input.nextLine());
+		
+		if(!newName.equals(""))
+		{
+			edit.setName(newName);
+		}
+		if(newId >=0)
+		{
+			edit.setID(newId);
+		}
+		if(newSal>=0)
+		{
+			edit.setSalary(newSal);
+		}
+			
+		
+		
 		
 	}
+	private static void printList(ArrayList<Employee> employees)
+	{
+		for(Employee e: employees)
+			System.out.println(e.toString());
+	}
+
 }
