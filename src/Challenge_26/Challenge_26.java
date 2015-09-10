@@ -12,9 +12,10 @@ import java.util.Scanner;
 public class Challenge_26
 {
 	private static Scanner input = new Scanner(System.in);
+	private static ArrayList<Employee> employeeList;
 	public static void main(String args[])
 	{
-		ArrayList<Employee> employeeList = new ArrayList<Employee>();
+		employeeList = new ArrayList<Employee>();
 		int option = 0;
 		while(option>=0)
 		{
@@ -26,17 +27,17 @@ public class Challenge_26
 			option = Integer.parseInt(input.nextLine());
 			switch(option)
 			{
-				case 1:	addEmployee(employeeList);
+				case 1:	addEmployee();
 						break;
-				case 2: deleteEmployee(employeeList);
+				case 2: deleteEmployee();
 						break;
-				case 3: editEmployee(employeeList);
+				case 3: editEmployee();
 						break;
-				case 4: printList(employeeList);
+				case 4: printList();
 			}
 		}
 	}
-	private static void addEmployee(ArrayList<Employee> employeeList)
+	private static void addEmployee()
 	{
 		System.out.println("Enter a name: ");
 		String name = input.nextLine();
@@ -46,7 +47,7 @@ public class Challenge_26
 		double salary = Double.parseDouble(input.nextLine());
 		employeeList.add(new Employee(name, id, salary));
 	}
-	private static void deleteEmployee(ArrayList<Employee> employeeList)
+	private static void deleteEmployee()
 	{
 		System.out.println("Enter name of delete");
 		String name = input.nextLine();
@@ -59,7 +60,7 @@ public class Challenge_26
 			}
 		}
 	}
-	private static void editEmployee(ArrayList<Employee> employeeList)
+	private static void editEmployee()
 	{
 		System.out.println("Enter name of employee to edit");
 		String name = input.nextLine();
@@ -100,9 +101,9 @@ public class Challenge_26
 		
 		
 	}
-	private static void printList(ArrayList<Employee> employees)
+	private static void printList()
 	{
-		for(Employee e: employees)
+		for(Employee e: employeeList)
 			System.out.println(e.toString());
 	}
 
