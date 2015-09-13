@@ -33,15 +33,32 @@ public class Challenge_43
 		int year = input.nextInt();
 		System.out.println("Enter month: ");
 		int month = input.nextInt();
+		
 		System.out.println("Enter day: ");
 		int day = input.nextInt();
-		
-		int dayOfWeek = findDayOfWeek(year, monthsTable[month-1], day);
+		int dayOfWeek=-1;
+		if(year%4==0&& year%100==0 && year%400==0)
+		{
+			if(month-1==0)
+			{
+				dayOfWeek = findDayOfWeek(year, 6, day);
+			}
+			else if(month-1==2)
+			{
+				dayOfWeek = findDayOfWeek(year, 2, day);
+			}
+		}
+		else
+		{
+			dayOfWeek = findDayOfWeek(year, monthsTable[month-1], day);
+		}
 		System.out.println("That day is a " + daysOfWeek[dayOfWeek]);
 	}
 
 	public static int findDayOfWeek(int year, int month, int day)
 	{
+
+		
 		int tempYear = year;
 		int secondHalf = 0;
 		if (tempYear > 1000)
