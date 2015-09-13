@@ -19,6 +19,20 @@ public class Challenge_27
 		"Friday",
 		"Saturday"
 	};
+	public static final int[] monthsTable = {
+			0,
+			3,
+			3,
+			6,
+			1,
+			4,
+			6,
+			2,
+			5,
+			0,
+			3,
+			5
+		};
 
 	public static void main(String args[])
 	{
@@ -45,6 +59,6 @@ public class Challenge_27
 		}
 		
 		int c = tempYear%4;
-		return ((spDay+spMonth+secondHalf+(secondHalf/4)+c)-1)%7;
+		return ((spDay+monthsTable[spMonth-1]+secondHalf+(secondHalf/4)+c)-1)%7;
 	}
 }
