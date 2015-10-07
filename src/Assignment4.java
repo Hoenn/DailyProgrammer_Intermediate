@@ -1,58 +1,74 @@
+import java.util.Random;
 
-public class Assignment4 
-{
-	public static void main(String args[])
-	{
-		int[] list = {5, 6, 4, 23, 7};
-		list=mergeSort(list);
-		for(int i=0; i<list.length; i++)
+public class Assignment4 {
+	public static int comparisons = 0;
+	public static void main(String args[]) {
+		int[] sizes = {5, 10, 20, 100000, 200000, 1000000, 2000000, 10000000, 15000000};
+		Random r = new Random();
+		for(int i = 0; i<sizes.length; i++)
 		{
-			System.out.println(list[i]);
+			Integer[] list = new Integer[sizes[i]];
+			for(int k =0; k < list.length; k++)
+			{
+				list[k]=(r.nextInt(Integer.MAX_VALUE));
+			}
+			
+			sort(list);
+			if(list.length<=20)
+			{
+				for (int j = 0; j < list.length; j++) 
+					System.out.print(list[j]+" ");
+			}
+			System.out.println("Number of Comparisons: "+comparisons);
+			System.out.println("Magnitude: "+list.length*(Math.log(list.length)/Math.log(2)));
+			comparisons=0;
 		}
+		
+		
+		
 	}
-	public static int[] mergeSort(int [] list) 
-	{
-        if (list.length <= 1) 
-        {
-            return list;
+
+    public static <T extends Comparable<T>> void sort(T[] list) {
+        if (list.length <= 1) {
+            return;
         }
         
-        int[] firstHalf = new int[list.length / 2];
-        int[] secondHalf = new int[list.length - firstHalf.length];
-        System.arraycopy(list, 0, firstHalf, 0, firstHalf.length);
-        System.arraycopy(list, firstHalf.length, secondHalf, 0, secondHalf.length);
+        T[] first = (T[]) new Comparable[list.length/2];
+        T[] second = (T[]) new Comparable[list.length-first.length];
+        System.arraycopy(list, 0, first, 0, first.length);
+        System.arraycopy(list, first.length, second, 0, second.length);
         
-        mergeSort(firstHalf);
-        mergeSort(secondHalf);
+        sort(first);
+        sort(second);
         
-        merge(firstHalf, secondHalf, list);
-        return list;
+        merge(first, second, list);
     }
     
-    private static void merge(int[] a, int[] b, int [] result) 
+    private static <T extends Comparable<T>> void merge(T[] first, T [] second, T[] result) 
     {
-        int aIndex = 0;
-     
-        int bIndex = 0;
-        
-        int current = 0;
 
-        while (aIndex < a.length && bIndex < b.length) {
-            if (a[aIndex] < b[bIndex]) {
-                result[current] = a[aIndex];
-                aIndex++;
+        int indexFirst = 0;
+        int indexSecond = 0;
+        
+        int current= 0;
+        while (indexFirst < first.length && indexSecond < second.length) 
+        {
+            if (first[indexFirst] .compareTo( second[indexSecond])<0) 
+            {
+                result[current] = first[indexFirst];
+                indexFirst++;
             } 
             else 
             {
-            	result[current] = b[bIndex];
-            	bIndex++;
+                result[current] = second[indexSecond];
+                indexSecond++;
             }
+            comparisons++;
             current++;
         }
-        
-        System.arraycopy(a, aIndex, result, current, a.length - aIndex);
-        System.arraycopy(b, bIndex, result, current, b.length - bIndex);
+        System.arraycopy(first, indexFirst, result, current, first.length - indexFirst);
+        System.arraycopy(second, indexSecond, result, current, second.length - indexSecond);
     }
-    
-
 }
+
+	
