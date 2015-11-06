@@ -50,11 +50,11 @@ public class NewHashTable<K,V> {
 		int hash= key.hashCode();
 		int index = Math.abs(compress(hash));
 		LinkedList<HashEntry<K,V>> initPos = hashTable.get(index);
-		Iterator iterator = initPos.iterator();
+		Iterator<HashEntry<K,V>> iterator = initPos.iterator();
 		boolean found = false;
 		while(!found && iterator.hasNext())
 		{
-			HashEntry h = (HashEntry) iterator.next();
+			HashEntry<K,V> h = iterator.next();
 			if(h.key.equals(key))
 				found=true;
 		}
@@ -65,21 +65,37 @@ public class NewHashTable<K,V> {
 	public V put(K key, V value)
 	{
 		if(key==null)
-			throw new IllegalArgumentException("Key cannot be null");
+			throw new NullPointerException("Key cannot be null");
 		if(value==null)
-			throw new IllegalArgumentException("Value cannot be null");
+			throw new NullPointerException("Value cannot be null");
 		int hash = key.hashCode();
 		int index = Math.abs(compress(hash));
+		V valueAtLocation = null;
 		LinkedList<HashEntry<K, V>> position = hashTable.get(index);
-		position.add(new HashEntry<K, V>(key, value));
-		
-		numEntries++;
-		if(numEntries/capacity>= loadFactor)
+		Iterator<HashEntry<K,V>> iterator = position.iterator();
+
+		boolean found = false;
+		while(!found && iterator.hasNext())
 		{
-			rehash();
+			HashEntry<K, V> h = iterator.next();
+			if(h.key.equals(key))
+			{				
+				valueAtLocation = h.getValue();
+				iterator.remove();
+				found=true;
+			}
 		}
 		
-		return value;
+		position.add(new HashEntry<K, V>(key, value));
+
+		if(valueAtLocation==null)
+		{
+			numEntries++;
+			if(numEntries/capacity>= loadFactor)
+				rehash();
+		}
+
+		return valueAtLocation;
 	}
 	public V get(K key)
 	{
@@ -90,37 +106,65 @@ public class NewHashTable<K,V> {
 		LinkedList<HashEntry<K,V>> chain = hashTable.get(index);
 		if(chain.size()==0)
 			return null;
-		Iterator iterator = chain.iterator();
+		Iterator<HashEntry<K,V>> iterator = chain.iterator();
 		boolean found=false;
 		HashEntry<K,V> currentEntry = null;
 		while(!found && iterator.hasNext())
-		{
-			currentEntry = (HashEntry)iterator.next();
+		{		
+			currentEntry = iterator.next();
 			if(currentEntry.getKey().equals(key))
+			{
 				found=true;
+			}
 		}
 		return currentEntry.getValue();
+	}
+	public V remove(K key)
+	{
+		int hash= key.hashCode();
+		int index = Math.abs(compress(hash));
+		
+		LinkedList<HashEntry<K,V>> chain = hashTable.get(index);
+		if(chain.size()==0)
+			return null;
+		Iterator<HashEntry<K,V>> iterator = chain.iterator();
+		boolean found = false;
+		HashEntry<K,V> currentEntry = null;
+		while(!found && iterator.hasNext())
+		{
+			currentEntry = iterator.next();
+			if(currentEntry.key.equals(key))
+			{
+				iterator.remove();
+				found=true;
+				numEntries--;
+				
+			}
+		}
+		
+		return currentEntry.value;
 	}
 	public void rehash()
 	{
 		int newCapacity = capacity*2;
 		ArrayList<LinkedList<HashEntry<K, V>>> temp = new ArrayList<LinkedList<HashEntry<K, V>>>(newCapacity);
 		initializeBuckets(temp, newCapacity);
+		
 		for(int i =0; i<capacity; i++)
 		{
 			LinkedList<HashEntry<K,V>> currentChain = hashTable.get(i);
 			//If there is at least one entry
-			if(currentChain!=null)
+			if(currentChain.size()>0)
 			{
 				//Get the chain 
-				Iterator iterator = currentChain.iterator();
+				Iterator<HashEntry<K,V>> iterator = currentChain.iterator();
 				//Go to each entry and add to new larger list
 				//Chains should break up from larger capacity
 				while(iterator.hasNext())
 				{
-					HashEntry<K,V> currentEntry = (HashEntry) iterator.next();
+					HashEntry<K,V> currentEntry = iterator.next();
 					int hash = currentEntry.getKey().hashCode();
-					int index = hash % newCapacity;
+					int index = Math.abs(hash % newCapacity);
 					LinkedList<HashEntry<K,V>> chainOnNewList= temp.get(index);
 					chainOnNewList.add(currentEntry);
 				}
@@ -128,7 +172,7 @@ public class NewHashTable<K,V> {
 		}
 		System.out.println("Rehashing now Old capacity: "+capacity+" New Capacity: "+newCapacity);
 		hashTable = temp;
-		capacity= newCapacity;//hashTable.size()
+		this.capacity= hashTable.size();
 	}
 	public void clear()
 	{
@@ -143,10 +187,10 @@ public class NewHashTable<K,V> {
 			LinkedList<HashEntry<K,V>> currentChain= hashTable.get(i);
 			if(currentChain.size()>0)
 			{
-				Iterator iterator = currentChain.iterator();
+				Iterator<HashEntry<K,V>> iterator = currentChain.iterator();
 				while(iterator.hasNext())
 				{
-					HashEntry<K,V> currentEntry = (HashEntry)iterator.next();
+					HashEntry<K,V> currentEntry = iterator.next();
 					output.append(currentEntry.getKey()+"="+currentEntry.getValue());
 					output.append(",");
 				}
@@ -158,7 +202,9 @@ public class NewHashTable<K,V> {
 		output.append("}");
 		return output.toString();
 	}
-	public class HashEntry<K,V> {
+	
+	@SuppressWarnings("hiding")
+	public class HashEntry<K, V> {
 	      private K key;
 	      private V value;
 	 
