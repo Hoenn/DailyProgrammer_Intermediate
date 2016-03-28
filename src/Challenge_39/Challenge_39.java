@@ -1,5 +1,10 @@
 package Challenge_39;
 
+/*
+ * @author https://github.com/Hoenn
+ * 
+ * Determine if a number is a Kaprekar number
+ */
 import java.util.Scanner;
 
 public class Challenge_39 {
